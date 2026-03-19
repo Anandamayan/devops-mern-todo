@@ -1,0 +1,55 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const API = `${import.meta.env.VITE_API_URL}/tasks`;
+
+console.log("API URL:", API);
+
+function App() {
+  const [tasks, setTasks] = useState([]);
+  const [text, setText] = useState('');
+
+  const fetchTasks = async () => {
+    const res = await axios.get(API);
+    setTasks(res.data);
+  };
+
+  const addTask = async () => {
+    if (!text) return;
+    await axios.post(API, { text });
+    setText('');
+    fetchTasks();
+  };
+
+  const deleteTask = async (id) => {
+    await axios.delete(`${API}/${id}`);
+    fetchTasks();
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <h1>To-Do List with Devops DB Test</h1>
+      <input
+        value={text}
+        onChange={e => setText(e.target.value)}
+        placeholder="New task"
+      />
+      <button onClick={addTask}>Add</button>
+      <ul>
+  {Array.isArray(tasks) &&
+    tasks.map(task => (
+      <li key={task._id}>
+        {task.text}
+        <button onClick={() => deleteTask(task._id)}>❌</button>
+      </li>
+    ))}
+</ul>
+    </div>
+  );
+}
+
+export default App;
