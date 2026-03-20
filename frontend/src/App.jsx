@@ -11,7 +11,7 @@ function App() {
 
   const fetchTasks = async () => {
     const res = await axios.get(API);
-    setTasks(res.data);
+    setTasks(res.data.tasks);
   };
 
   const addTask = async () => {
@@ -32,7 +32,7 @@ function App() {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>To-Do List with Devops DB Test</h1>
+      <h1>To-Do List</h1>
       <input
         value={text}
         onChange={e => setText(e.target.value)}
