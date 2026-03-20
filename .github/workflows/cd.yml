@@ -19,5 +19,6 @@ jobs:
            echo "Connected to server"
            cd devops-mern-todo/
            git pull origin main
+           export DOCKER_BUILDKIT=0
            docker-compose down
            docker-compose up --build -d
