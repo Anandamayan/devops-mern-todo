@@ -12,7 +12,7 @@ describe('GET api/tasks',() => {
         // expect(Array.isArray(res.body).toBe(true));
         expect(typeof res.body).toBe("object");
         expect(res.body).toHaveProperty("tasks")
-
+        console.log(res.body.tasks, 'Data Seeded')
     })
 })
 
